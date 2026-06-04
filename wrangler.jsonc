@@ -13,6 +13,13 @@
 	"upload_source_maps": true,
 	"compatibility_flags": [
 		"nodejs_compat"
+	],
+	"r2_buckets": [
+		{
+			"bucket_name": "file-storage",
+			"binding": "file_storage",
+			"remote": true
+		}
 	]
 	/**
 	 * Smart Placement
