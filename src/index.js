@@ -1,15 +1,28 @@
-/**
- * Welcome to Cloudflare Workers! This is your first worker.
- *
- * - Run `npm run dev` in your terminal to start a development server
- * - Open a browser tab at http://localhost:8787/ to see your worker in action
- * - Run `npm run deploy` to publish your worker
- *
- * Learn more at https://developers.cloudflare.com/workers/
- */
+import { jsonResponse, errorResponse } from './helpers.js';
 
 export default {
 	async fetch(request, env, ctx) {
-		return new Response("Hello World!");
+		const url = new URL(request.url);
+		const path = url.pathname;
+		const method = request.method;
+
+		// --- API Routes ---
+		if (path === '/api/files/upload' && method === 'POST') {
+			return jsonResponse({ message: 'Upload endpoint coming soon' });
+		}
+
+		if (path === '/api/files' && method === 'GET') {
+			return jsonResponse({ message: 'List endpoint coming soon' });
+		}
+
+		// --- UI Route ---
+		if (path === '/' && method === 'GET') {
+			return new Response('File Manager API — UI coming soon', {
+				headers: { 'Content-Type': 'text/plain' },
+			});
+		}
+
+		// --- Fallback ---
+		return errorResponse('Not found', 404);
 	},
 };
