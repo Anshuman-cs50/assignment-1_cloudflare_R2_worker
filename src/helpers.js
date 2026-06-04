@@ -17,3 +17,23 @@ export function errorResponse(message, status = 400) {
 		headers: { 'Content-Type': 'application/json' },
 	});
 }
+
+/**
+ * Sanitize a user-supplied filename. Strips path traversal and special chars.
+ * Returns null if the result is empty (i.e. the name was entirely invalid).
+ */
+export function sanitizeFilename(name) {
+	if (!name || typeof name !== 'string') return null;
+	// Remove path components and keep only the basename
+	const basename = name.split(/[/\\]/).pop();
+	// Whitelist: letters, digits, dots, hyphens, underscores
+	const cleaned = basename.replace(/[^a-zA-Z0-9._-]/g, '_').slice(0, 255);
+	return cleaned.length > 0 ? cleaned : null;
+}
+
+/**
+ * Generate a unique file ID using the Workers crypto API.
+ */
+export function generateId() {
+	return crypto.randomUUID();
+}
