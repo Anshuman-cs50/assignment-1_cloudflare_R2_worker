@@ -20,6 +20,12 @@
 			"binding": "file_storage",
 			"remote": true
 		}
+	],
+	"kv_namespaces": [
+		{
+			"binding": "FILE_METADATA",
+			"id": "4e1dbcc9320d45148b72dccf01cad378"
+		}
 	]
 	/**
 	 * Smart Placement
